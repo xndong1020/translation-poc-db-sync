@@ -1,0 +1,26 @@
+[
+  {
+    "name": "default",
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "root",
+    "database": "db_sync",
+    "synchronize": false,
+    "logging": ["error"],
+    "entities": ["src/entity/**/*.ts"]
+  },
+  {
+    "name": "postgresConnection",
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "root",
+    "password": "root",
+    "database": "nuber-eats",
+    "synchronize": false,
+    "logging": ["error"],
+    "entities": ["src/entity/**/*.ts"]
+  }
+]
