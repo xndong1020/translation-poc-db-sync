@@ -28,6 +28,25 @@ export const indexRecord = async (
   return result;
 };
 
+export const checkExistingKeyName = async (keyName: string) => {
+  const query = {
+    match: {
+      "keyName.keyword": keyName,
+    },
+  };
+
+  const { body } = await esClient.search({
+    index: "translation_data",
+    body: {
+      query,
+    },
+  });
+  const {
+    hits: { hits, max_score, total },
+  } = body;
+  return hits.map((item) => item._source);
+};
+
 export const indexRecordsBulk = async (
   dataset: ITranslateProps[]
 ): Promise<ApiResponse<Record<string, any>, unknown>> => {
@@ -35,7 +54,7 @@ export const indexRecordsBulk = async (
     { index: { _index: "translation_data" } },
     doc,
   ]);
-  console.log("body", body);
+  console.log("indexRecordsBulk body", body);
   const results = await esClient.bulk({
     index: "translation_data",
     body,
